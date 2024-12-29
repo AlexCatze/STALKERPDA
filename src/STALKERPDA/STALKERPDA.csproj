@@ -75,6 +75,15 @@
     <Compile Include="Controls\CustomButton.Designer.cs">
       <DependentUpon>CustomButton.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\MapView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\MapView.Designer.cs">
+      <DependentUpon>MapView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TransparentControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -141,6 +150,10 @@
     <EmbeddedResource Include="Images\Ui\Buttons\ButtonPower_Pressed.png" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Controls\MapView.resx">
+      <DependentUpon>MapView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Images\Ui\Background\Map\Back.png" />
     <EmbeddedResource Include="Images\Ui\Background\Map\Bottom.png" />
     <EmbeddedResource Include="Images\Ui\Background\Map\Left.png" />
@@ -150,6 +163,35 @@
     <EmbeddedResource Include="Images\Ui\Background\Map\RightBottom.png" />
     <EmbeddedResource Include="Images\Ui\Background\Map\RightTop.png" />
     <EmbeddedResource Include="Images\Ui\Background\Map\Top.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\CustomButton.resx">
+      <DependentUpon>CustomButton.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\Ui\Buttons\Map\Button1.png" />
+    <EmbeddedResource Include="Images\Ui\Buttons\Map\Button1_Pressed.png" />
+    <EmbeddedResource Include="Images\Ui\Buttons\Map\Button2.png" />
+    <EmbeddedResource Include="Images\Ui\Buttons\Map\Button2_Pressed.png" />
+    <EmbeddedResource Include="Images\Ui\Buttons\Map\Button3.png" />
+    <EmbeddedResource Include="Images\Ui\Buttons\Map\Button3_Pressed.png" />
+    <EmbeddedResource Include="Images\Ui\Buttons\Map\Button4.png" />
+    <EmbeddedResource Include="Images\Ui\Buttons\Map\Button4_Pressed.png" />
+    <EmbeddedResource Include="Images\Ui\Buttons\Map\Button5.png" />
+    <EmbeddedResource Include="Images\Ui\Buttons\Map\Button5_Pressed.png" />
+    <EmbeddedResource Include="Images\Ui\Buttons\Map\Button6.png" />
+    <EmbeddedResource Include="Images\Ui\Buttons\Map\Button6_Pressed.png" />
+    <EmbeddedResource Include="Images\Ui\Buttons\Map\Button7.png" />
+    <EmbeddedResource Include="Images\Ui\Buttons\Map\Button7_Pressed.png" />
+    <EmbeddedResource Include="Images\Ui\Buttons\Map\Button8.png" />
+    <EmbeddedResource Include="Images\Ui\Buttons\Map\Button8_Pressed.png" />
+    <EmbeddedResource Include="Images\Ui\Buttons\Map\Button9.png" />
+    <EmbeddedResource Include="Images\Ui\Buttons\Map\Button9_Pressed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="vt1.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
   <ProjectExtensions>

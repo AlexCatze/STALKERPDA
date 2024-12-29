@@ -12,7 +12,7 @@ using STALKERPDA.Utils;
 
 namespace STALKERPDA.Controls
 {
-    public partial class CustomButton : UserControl
+    public partial class CustomButton : TransparentControl
     {
         private ImagingFactoryClass m_factory;
 
@@ -21,6 +21,14 @@ namespace STALKERPDA.Controls
         public string Caption { get; set; }
         public bool SwitchMode { get; set; }
         public bool IsPressed { get { return isPress; } set { isPress = value; Invalidate(); } }
+
+        public bool Repeat { get; set; }
+
+        [DefaultValue(400)]
+        public int InitialDelay { set; get; }
+
+        [DefaultValue(62)]
+        public int RepeatInterval { set; get; }
 
         private string dimg, pimg;
 
@@ -31,20 +39,15 @@ namespace STALKERPDA.Controls
         {
             m_factory = new ImagingFactoryClass();
 
+            InitialDelay = 400;
+            RepeatInterval = 62;
+
             InitializeComponent();
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            IBackgroundPaintProvider bgPaintProvider = Parent as IBackgroundPaintProvider;
-            if (bgPaintProvider != null)
-            {
-                Rectangle rcPaint = e.ClipRectangle;
-                rcPaint.Offset(Left, Top);
-                bgPaintProvider.PaintBackground(e.Graphics, e.ClipRectangle, rcPaint);
-            }
-
-            //base.OnPaint(e);
+            base.OnPaint(e);
             using (Graphics g = e.Graphics)
             {
                 IntPtr hdc = g.GetHdc();
@@ -64,11 +67,6 @@ namespace STALKERPDA.Controls
             }
         }
 
-        protected override void OnPaintBackground(PaintEventArgs e)
-        {
-            //base.OnPaintBackground(e);  
-        }
-
         protected override void OnMouseDown(MouseEventArgs e)
         {
             base.OnMouseDown(e);
@@ -76,12 +74,17 @@ namespace STALKERPDA.Controls
                 IsPressed = !IsPressed;
             else
                 IsPressed = true;
+
+            if (Repeat)
+                timer1_Tick(null, EventArgs.Empty);
         }
 
         protected override void OnMouseUp(MouseEventArgs e)
         {
             base.OnMouseUp(e);
             if (!SwitchMode) IsPressed = false;
+
+            timer1.Enabled = false;
         }
 
         private void GetImage(string path, out IImage img)
@@ -94,5 +97,18 @@ namespace STALKERPDA.Controls
             //ImageInfo ii;
             //imgBlank.GetImageInfo(out ii);
         }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            OnTick.Invoke(this, e);
+            if (timer1.Enabled)
+                timer1.Interval = RepeatInterval;
+            else
+                timer1.Interval = InitialDelay;
+
+            timer1.Enabled = true;
+        }
+
+        public event EventHandler OnTick;
     }
 }

@@ -30,6 +30,7 @@
         {
             this.customButton1 = new STALKERPDA.Controls.CustomButton();
             this.customButton2 = new STALKERPDA.Controls.CustomButton();
+            this.mapView1 = new STALKERPDA.Controls.MapView();
             this.SuspendLayout();
             // 
             // customButton1
@@ -56,12 +57,23 @@
             this.customButton2.TabIndex = 1;
             this.customButton2.Click += new System.EventHandler(this.customButton2_Click);
             // 
+            // mapView1
+            // 
+            this.mapView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.mapView1.Location = new System.Drawing.Point(7, 99);
+            this.mapView1.Name = "mapView1";
+            this.mapView1.Size = new System.Drawing.Size(607, 354);
+            this.mapView1.TabIndex = 2;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(192F, 192F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(640, 480);
+            this.Controls.Add(this.mapView1);
             this.Controls.Add(this.customButton2);
             this.Controls.Add(this.customButton1);
             this.KeyPreview = true;
@@ -77,6 +89,7 @@
 
         private STALKERPDA.Controls.CustomButton customButton1;
         private STALKERPDA.Controls.CustomButton customButton2;
+        private STALKERPDA.Controls.MapView mapView1;
 
 
 
