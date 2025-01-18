@@ -78,7 +78,7 @@ namespace STALKERPDA.Controls
                 {
                     int xoff = i - todrawleft;
 
-                    for (int k = 0; k < todrawx; k++)
+                    for (int k = 0; k < todrawy; k++)
                     {
                         int yoff = k - todrawtop;
                         var tile = GetTile(x0 + xoff, y0 + yoff, zoom);
@@ -87,7 +87,7 @@ namespace STALKERPDA.Controls
                     }
                 }
 
-                g.DrawImage(GetTile(x0, y0, zoom), (this.Width / 2) - dx, (this.Height / 2) - dy);
+                //g.DrawImage(GetTile(x0, y0, zoom), (this.Width / 2) - dx, (this.Height / 2) - dy);
 
                 g.DrawRectangle(new Pen(Color.FromArgb(93, 95, 95), 1), 0, 0, this.Width - 1, this.Height - 1);//TODO: Move to background
 
