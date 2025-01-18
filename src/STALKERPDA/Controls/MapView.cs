@@ -9,10 +9,12 @@ using System.Windows.Forms;
 using System.IO;
 using System.Reflection;
 using System.Threading;
+using STALKERPDA.Utils;
+using OpenNETCF.Drawing;
 
 namespace STALKERPDA.Controls
 {
-    public partial class MapView : TransparentControl
+    public partial class MapView : DoubleBufferedControl
     {
         private const int MIN_ZOOM = 10, MAX_ZOOM = 18, DEFAULT_ZOOM = 14;
         private const int TILE_SIDE = 256, SCROLL_SPEED = 10;
@@ -23,6 +25,10 @@ namespace STALKERPDA.Controls
         private int todrawx = 1, todrawy = 1;
 
         private int offsetx, offsety;
+        
+        protected Bitmap mapBuffer;
+        protected Graphics mapGraphics;
+        protected GraphicsEx mapGraphicsEx;
 
         public void SetCenterLatLon(double _lat, double _lon)
         {
@@ -47,14 +53,30 @@ namespace STALKERPDA.Controls
         public MapView()
         {
             InitializeComponent();
+            mapBuffer = new Bitmap(1, 1);
         }
 
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
+            if (mapGraphicsEx != null)
+                mapGraphicsEx.Dispose();
+            if (mapGraphics != null)
+                mapGraphics.Dispose();
+            if (mapBuffer != null)
+                mapBuffer.Dispose();
 
-            todrawx = (int)Math.Ceiling((float)this.Width / (float)TILE_SIDE) + 1;
-            todrawy = (int)Math.Ceiling((float)this.Height / (float)TILE_SIDE) + 1;
+            mapBuffer = new Bitmap(ClientRectangle.Width - 2, ClientRectangle.Height - 2);
+            mapGraphics = Graphics.FromImage(mapBuffer);
+            mapGraphicsEx = GraphicsEx.FromGraphics(mapGraphics);
+
+            todrawx = (int)Math.Ceiling((float)mapBuffer.Width / (float)TILE_SIDE) + 1;
+            todrawy = (int)Math.Ceiling((float)mapBuffer.Height / (float)TILE_SIDE) + 1;
+        }
+
+        protected override void SetupBackground()
+        {
+            m_gBuffer.DrawRectangle(new Pen(Color.FromArgb(93, 95, 95), 1), 0, 0, this.Width - 1, this.Height - 1);//TODO: Move to background
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -82,14 +104,16 @@ namespace STALKERPDA.Controls
                     {
                         int yoff = k - todrawtop;
                         var tile = GetTile(x0 + xoff, y0 + yoff, zoom);
-                        g.DrawImage(tile, (this.Width / 2) - dx + (TILE_SIDE * xoff) + offsetx, (this.Height / 2) - dy + (TILE_SIDE * yoff) + offsety);
+                        mapGraphics.DrawImage(tile, (this.Width / 2) - dx + (TILE_SIDE * xoff) + offsetx, (this.Height / 2) - dy + (TILE_SIDE * yoff) + offsety);
                         tile.Dispose();
                     }
                 }
 
-                //g.DrawImage(GetTile(x0, y0, zoom), (this.Width / 2) - dx, (this.Height / 2) - dy);
+                //g.DrawImage(mapBuffer, 1,1);
 
-                g.DrawRectangle(new Pen(Color.FromArgb(93, 95, 95), 1), 0, 0, this.Width - 1, this.Height - 1);//TODO: Move to background
+                var gex = GraphicsEx.FromGraphics(g);
+                gex.CopyGraphics(mapGraphicsEx, new Rectangle(1,1,this.Width-2, this.Height-2));
+                //gex.Dispose();
 
                 g.FillRectangle(new SolidBrush(Color.Red), Width / 2, Height / 2, 1, 1);
             }
@@ -99,15 +123,15 @@ namespace STALKERPDA.Controls
         {
             var i = new Bitmap(TILE_SIDE, TILE_SIDE);
 
-            var color = (((x+y)%2) > 0)? Color.FromArgb(0,0,255) : Color.FromArgb(0,255,0);
-            var font = new Font(FontFamily.GenericSerif,6,FontStyle.Bold);
+            var color = (((x + y) % 2) > 0) ? Color.FromArgb(0, 0, 255) : Color.FromArgb(0, 255, 0);
+            var font = new Font(FontFamily.GenericSerif, 6, FontStyle.Bold);
             string text = x + " " + y + " " + z;
 
             using (var g = Graphics.FromImage(i))
             {
                 var mes = g.MeasureString(text, font);
-                
-                g.FillRectangle(new SolidBrush(color),0,0,TILE_SIDE,TILE_SIDE);
+
+                g.FillRectangle(new SolidBrush(color), 0, 0, TILE_SIDE, TILE_SIDE);
 
                 g.DrawString(text, font, new SolidBrush(Color.Black), (TILE_SIDE - mes.Width) / 2, (TILE_SIDE - mes.Height) / 2);
             }

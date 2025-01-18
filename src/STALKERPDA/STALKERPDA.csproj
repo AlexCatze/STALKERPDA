@@ -75,6 +75,9 @@
     <Compile Include="Controls\CustomButton.Designer.cs">
       <DependentUpon>CustomButton.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\DoubleBufferedControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\MapView.cs">
       <SubType>UserControl</SubType>
     </Compile>

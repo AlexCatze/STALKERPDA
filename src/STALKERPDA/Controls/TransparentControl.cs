@@ -9,35 +9,11 @@ using OpenNETCF.Drawing.Imaging;
 
 namespace STALKERPDA.Controls
 {
-    public class TransparentControl : UserControl, IBackgroundPaintProvider
+    public class TransparentControl : DoubleBufferedControl
     {
-        protected Bitmap m_bmBuffer;
-        protected Graphics m_gBuffer;
-        protected ImagingFactoryClass m_factory;
-
-        public TransparentControl()
+        public TransparentControl() : base()
         {
-            m_bmBuffer = new Bitmap(1, 1);
-            m_factory = new ImagingFactoryClass();
-        }
 
-        protected override void OnResize(EventArgs e)
-        {
-            base.OnResize(e);
-            if (m_bmBuffer != null)
-                m_bmBuffer.Dispose();
-            if (m_gBuffer != null)
-                m_gBuffer.Dispose();
-
-            m_bmBuffer = null;
-            m_gBuffer = null;
-
-            if (Width * Height == 0)
-                return;
-            m_bmBuffer = new Bitmap(ClientRectangle.Width, ClientRectangle.Height);
-            m_gBuffer = Graphics.FromImage(m_bmBuffer);
-            SetupBackground();
-            Invalidate();
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -50,24 +26,5 @@ namespace STALKERPDA.Controls
                 bgPaintProvider.PaintBackground(e.Graphics, e.ClipRectangle, rcPaint);
             }
         }
-
-        protected override void OnPaintBackground(PaintEventArgs e)
-        {
-            e.Graphics.DrawImage(m_bmBuffer, 0, 0);
-        }
-
-        protected virtual void SetupBackground()
-        {
-
-        }
-
-        #region IBackgroundPaintProvider Members
-
-        public void PaintBackground(Graphics g, Rectangle targetRect, Rectangle sourceRect)
-        {
-            g.DrawImage(m_bmBuffer, targetRect, sourceRect, GraphicsUnit.Pixel);
-        }
-
-        #endregion
     }
 }
