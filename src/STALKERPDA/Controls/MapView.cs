@@ -16,19 +16,21 @@ namespace STALKERPDA.Controls
 {
     public partial class MapView : DoubleBufferedControl
     {
-        private const int MIN_ZOOM = 10, MAX_ZOOM = 18, DEFAULT_ZOOM = 14;
-        private const int TILE_SIDE = 256, SCROLL_SPEED = 10;
+        public const int MIN_ZOOM = 10, MAX_ZOOM = 17, DEFAULT_ZOOM = 14;
+        public const int TILE_SIDE = 256, SCROLL_SPEED = 10;
 
         private double x, y, lat, lon;
         private int zoom = DEFAULT_ZOOM;
 
         private int todrawx = 1, todrawy = 1;
 
-        private int offsetx, offsety;
+        //private int offsetx, offsety;
         
         protected Bitmap mapBuffer;
         protected Graphics mapGraphics;
         protected GraphicsEx mapGraphicsEx;
+
+        protected MapTileProvider TileProvider = new MapTileProvider();
 
         public void SetCenterLatLon(double _lat, double _lon)
         {
@@ -85,8 +87,6 @@ namespace STALKERPDA.Controls
 
             using (var g = e.Graphics)
             {
-                
-
                 int x0 = (int)Math.Floor(x), y0 = (int)Math.Floor(y);
                 int dx = (int)(TILE_SIDE * (x - x0)), dy = (int)(TILE_SIDE * (y - y0));
 
@@ -104,16 +104,16 @@ namespace STALKERPDA.Controls
                     {
                         int yoff = k - todrawtop;
                         var tile = GetTile(x0 + xoff, y0 + yoff, zoom);
-                        mapGraphics.DrawImage(tile, (this.Width / 2) - dx + (TILE_SIDE * xoff) + offsetx, (this.Height / 2) - dy + (TILE_SIDE * yoff) + offsety);
+                        mapGraphics.DrawImage(tile, (this.Width / 2) - dx + (TILE_SIDE * xoff), (this.Height / 2) - dy + (TILE_SIDE * yoff));
                         tile.Dispose();
                     }
                 }
 
                 //g.DrawImage(mapBuffer, 1,1);
 
-                var gex = GraphicsEx.FromGraphics(g);
+                var gex = GraphicsEx.FromHdc(g.GetHdc());
                 gex.CopyGraphics(mapGraphicsEx, new Rectangle(1,1,this.Width-2, this.Height-2));
-                //gex.Dispose();
+                gex.Dispose();
 
                 g.FillRectangle(new SolidBrush(Color.Red), Width / 2, Height / 2, 1, 1);
             }
@@ -121,29 +121,14 @@ namespace STALKERPDA.Controls
 
         private Bitmap GetTile(int x, int y, int z)
         {
-            var i = new Bitmap(TILE_SIDE, TILE_SIDE);
-
-            var color = (((x + y) % 2) > 0) ? Color.FromArgb(0, 0, 255) : Color.FromArgb(0, 255, 0);
-            var font = new Font(FontFamily.GenericSerif, 6, FontStyle.Bold);
-            string text = x + " " + y + " " + z;
-
-            using (var g = Graphics.FromImage(i))
-            {
-                var mes = g.MeasureString(text, font);
-
-                g.FillRectangle(new SolidBrush(color), 0, 0, TILE_SIDE, TILE_SIDE);
-
-                g.DrawString(text, font, new SolidBrush(Color.Black), (TILE_SIDE - mes.Width) / 2, (TILE_SIDE - mes.Height) / 2);
-            }
-
-            return i;
+            return TileProvider.GetBitmap(x, y, z);
             //return new Bitmap(Path.GetDirectoryName (Assembly.GetExecutingAssembly ().GetName ().CodeBase)+"/vt1.jpg");
         }
 
         private void customButton5_Click(object sender, EventArgs e)// Center to character
         {
             SetZoom(18);
-            SetCenterLatLon(50.43339731489526, 30.521802666744918);
+            SetCenterLatLon(50.50150086776309, 30.4982178814705);
         }
 
         private void customButton3_Click(object sender, EventArgs e)// Increase zoom
@@ -163,28 +148,29 @@ namespace STALKERPDA.Controls
 
         private void customButton2_OnTick(object sender, EventArgs e)
         {
-            Offset(0, -1);
+            Offset(0, 1);
         }
 
         private void customButton6_OnTick(object sender, EventArgs e)
         {
-            Offset(-1, 0);
+            Offset(1, 0);
         }
 
         private void customButton8_OnTick(object sender, EventArgs e)
         {
-            Offset(0, 1);
+            Offset(0, -1);
         }
 
         private void customButton4_OnTick(object sender, EventArgs e)
         {
-            Offset(1, 0);
+            Offset(-1, 0);
         }
 
         private void Offset(int _x, int _y)
         {
-            offsetx += _x * SCROLL_SPEED;
-            offsety += _y * SCROLL_SPEED;
+            //offsetx += _x * SCROLL_SPEED;
+            //offsety += _y * SCROLL_SPEED;
+            SetCenterLatLon(lat + _y / Math.Pow(2, zoom) * SCROLL_SPEED, lon + _x / Math.Pow(2, zoom) * SCROLL_SPEED);
             Invalidate();
         }
     }

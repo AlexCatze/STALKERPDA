@@ -114,6 +114,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Utils\IBackgroundPaintProvider.cs" />
+    <Compile Include="Utils\MapTileProvider.cs" />
     <Compile Include="Utils\RenderEntry.cs" />
   </ItemGroup>
   <ItemGroup>
