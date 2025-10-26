@@ -12,6 +12,7 @@ using System.Threading;
 using STALKERPDA.Utils;
 using OpenNETCF.Drawing;
 using OpenNETCF.Drawing.Imaging;
+using STALKERPDA.Utils;
 
 namespace STALKERPDA.Controls
 {
@@ -32,6 +33,9 @@ namespace STALKERPDA.Controls
         protected GraphicsEx mapGraphicsEx;
 
         protected MapTileProvider TileProvider = new MapTileProvider();
+        protected GPSProvider GPS = new GPSProvider();
+
+        private GPSProvider.LatLon DefaultPos = new GPSProvider.LatLon(50.50150086776309, 30.4982178814705);
 
         protected IImage PlayerIcon;
         protected ImageInfo PlayerIconInfo;
@@ -46,6 +50,11 @@ namespace STALKERPDA.Controls
         {
             zoom = Math.Max(MIN_ZOOM, Math.Min(MAX_ZOOM, z));
             CalculateXY();
+        }
+
+        public GPSProvider.LatLon GetPlayerPos()
+        {
+            return GPS.IsGpsAvailable() ? GPS.GetLatLon() : DefaultPos;
         }
 
         private void CalculateXY()
@@ -70,6 +79,10 @@ namespace STALKERPDA.Controls
 
             PlayerIcon = LoadImageFromResource("STALKERPDA.Images.Ui.MapIcons.PlayerIcon.png");
             PlayerIcon.GetImageInfo(out PlayerIconInfo);
+
+            SetZoom(18);
+            var latlon = GetPlayerPos();
+            SetCenterLatLon(latlon.Lat, latlon.Lon);
         }
 
         protected override void OnResize(EventArgs e)
@@ -134,7 +147,8 @@ namespace STALKERPDA.Controls
                 var gex = GraphicsEx.FromHdc(hdc);
                 gex.CopyGraphics(mapGraphicsEx, new Rectangle(1,1,this.Width-2, this.Height-2));
 
-                DrawIcon(50.50150086776309, 30.4982178814705, PlayerIcon, hdc);
+                var latlon = GetPlayerPos();
+                DrawIcon(latlon.Lat, latlon.Lon, PlayerIcon, hdc);
 
                 //g.ReleaseHdc(hdc);
                 gex.Dispose();
@@ -170,7 +184,8 @@ namespace STALKERPDA.Controls
         private void customButton5_Click(object sender, EventArgs e)// Center to character
         {
             SetZoom(18);
-            SetCenterLatLon(50.50150086776309, 30.4982178814705);
+            var latlon = GetPlayerPos();
+            SetCenterLatLon(latlon.Lat, latlon.Lon);
         }
 
         private void customButton3_Click(object sender, EventArgs e)// Increase zoom
