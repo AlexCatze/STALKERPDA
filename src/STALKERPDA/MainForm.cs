@@ -56,6 +56,8 @@ namespace STALKERPDA
             timer.Tick += (a,b) => {
                 gpsIcon.Value =(int) mapView1.GetGpsState();
 
+                timeLabel.Value = DateTime.Now.ToString("HH:mm");
+
                 switch (SystemState.PowerBatteryStrength)
                 {
                     case BatteryLevel.VeryHigh:

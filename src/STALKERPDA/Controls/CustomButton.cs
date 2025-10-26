@@ -64,6 +64,7 @@ namespace STALKERPDA.Controls
                     var size = g.MeasureString(Caption, Font);
                     g.DrawString(Caption, Font, new SolidBrush(ForeColor), (Width - size.Width) / 2, (Height - size.Height) / 2);
                 }
+                g.ReleaseHdc(hdc);
             }
         }
 

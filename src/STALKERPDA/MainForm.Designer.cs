@@ -35,6 +35,7 @@
             this.settingsButton = new STALKERPDA.Controls.CustomButton();
             this.gpsIcon = new STALKERPDA.Controls.EnumVisualizer();
             this.batteryIcon = new STALKERPDA.Controls.EnumVisualizer();
+            this.timeLabel = new STALKERPDA.Controls.CustomLabel();
             this.SuspendLayout();
             // 
             // mapButton
@@ -113,12 +114,23 @@
             this.batteryIcon.Size = new System.Drawing.Size(32, 16);
             this.batteryIcon.TabIndex = 6;
             // 
+            // timeLabel
+            // 
+            this.timeLabel.Font = new System.Drawing.Font("Tahoma", 5F, System.Drawing.FontStyle.Bold);
+            this.timeLabel.ForeColor = System.Drawing.Color.Silver;
+            this.timeLabel.Location = new System.Drawing.Point(542, 10);
+            this.timeLabel.Name = "timeLabel";
+            this.timeLabel.Size = new System.Drawing.Size(44, 20);
+            this.timeLabel.TabIndex = 7;
+            this.timeLabel.Value = "00:00";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(192F, 192F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(640, 480);
+            this.Controls.Add(this.timeLabel);
             this.Controls.Add(this.batteryIcon);
             this.Controls.Add(this.gpsIcon);
             this.Controls.Add(this.settingsButton);
@@ -145,6 +157,7 @@
         private STALKERPDA.Controls.CustomButton settingsButton;
         private STALKERPDA.Controls.EnumVisualizer gpsIcon;
         private STALKERPDA.Controls.EnumVisualizer batteryIcon;
+        private STALKERPDA.Controls.CustomLabel timeLabel;
 
 
 
