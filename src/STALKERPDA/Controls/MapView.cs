@@ -116,7 +116,7 @@ namespace STALKERPDA.Controls
                     {
                         int yoff = k - todrawtop;
                         var tile = GetTile(x0 + xoff, y0 + yoff, zoom);
-                        mapGraphics.DrawImage(tile, (this.Width / 2) - dx + (TILE_SIDE * xoff), (this.Height / 2) - dy + (TILE_SIDE * yoff));
+                        mapGraphicsEx.DrawImage(tile, (this.Width / 2) - dx + (TILE_SIDE * xoff), (this.Height / 2) - dy + (TILE_SIDE * yoff));
                         //tile.Dispose();
                     }
                 }
@@ -131,7 +131,7 @@ namespace STALKERPDA.Controls
             }
         }
 
-        private Bitmap GetTile(int x, int y, int z)
+        private BitmapEx GetTile(int x, int y, int z)
         {
             return TileProvider.GetBitmap(x, y, z);
         }

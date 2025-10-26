@@ -189,7 +189,9 @@
     <EmbeddedResource Include="Images\Ui\Buttons\Map\Button9_Pressed.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Images\Ui\emptyTile.jpg" />
+    <Content Include="Images\Ui\emptyTile.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
   <ProjectExtensions>

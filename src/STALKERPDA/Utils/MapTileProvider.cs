@@ -7,6 +7,8 @@ using STALKERPDA.Controls;
 using System.IO;
 using System.Threading;
 using OpenNETCF.Drawing.Imaging;
+using OpenNETCF.Drawing;
+using System.Reflection;
 
 namespace STALKERPDA.Utils
 {
@@ -18,13 +20,13 @@ namespace STALKERPDA.Utils
 
         private const int CACHE_LIMIT = 80;
 
-        private Dictionary<long, Bitmap> BitmapCache = new Dictionary<long, Bitmap>();
+        private Dictionary<long, BitmapEx> BitmapCache = new Dictionary<long, BitmapEx>();
 
         private long CenterTileId = 0;
 
         private List<long> CacheList = new List<long>();
 
-        private Bitmap EmptyTile;
+        private BitmapEx EmptyTile;
 
         private List<long> WaitList = new List<long>();
 
@@ -43,7 +45,11 @@ namespace STALKERPDA.Utils
 
             var stream = GetType().Assembly.GetManifestResourceStream("STALKERPDA.Images.Ui.emptyTile.jpg");
 
-            EmptyTile = new Bitmap(stream);
+            var ass = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
+
+            var path = Path.Combine(ass, "Images/Ui/emptyTile.jpg");
+
+            EmptyTile = new BitmapEx(path);
 
 
             foreach (var pref in MAP_PREFIXES)
@@ -170,7 +176,7 @@ namespace STALKERPDA.Utils
 
         }
 
-        public Bitmap GetBitmap(int x, int y, int z)
+        public BitmapEx GetBitmap(int x, int y, int z)
         {
             //EnsureBitmapInCache(x,y,z);
             if (BitmapCache.ContainsKey(GetTileId(x, y, z)))
@@ -202,7 +208,7 @@ namespace STALKERPDA.Utils
 
             if (File.Exists(tilePath))
             {
-                BitmapCache.Add(GetTileId(coords.x, coords.y, coords.z), new Bitmap(tilePath));
+                BitmapCache.Add(GetTileId(coords.x, coords.y, coords.z), new BitmapEx(tilePath));
             }
             else
             {
