@@ -183,7 +183,10 @@ namespace STALKERPDA.Utils
                 return BitmapCache[GetTileId(x, y, z)];
             else
             {
-                WaitList.Add(GetTileId(x, y, z));
+                var id = GetTileId(x, y, z);
+
+                if(!WaitList.Contains(id))
+                    WaitList.Add(id);
                 return EmptyTile;
             }
         }

@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using OpenNETCF.Drawing.Imaging;
 using STALKERPDA.Utils;
+using Microsoft.WindowsMobile.Status;
 
 namespace STALKERPDA
 {
@@ -34,6 +35,45 @@ namespace STALKERPDA
         {
             m_factory = new ImagingFactoryClass();
             InitializeComponent();
+
+            gpsIcon.Images = new List<string> { 
+                "STALKERPDA.Images.Ui.Statusbar.Gps.Ok.png",
+                "STALKERPDA.Images.Ui.Statusbar.Gps.Warning.png",
+                "STALKERPDA.Images.Ui.Statusbar.Gps.Bad.png",
+                "STALKERPDA.Images.Ui.Statusbar.Gps.Error.png"};
+
+            batteryIcon.Images = new List<string>
+            {
+                "STALKERPDA.Images.Ui.Statusbar.Battery.1.png",
+                "STALKERPDA.Images.Ui.Statusbar.Battery.2.png",
+                "STALKERPDA.Images.Ui.Statusbar.Battery.3.png",
+                "STALKERPDA.Images.Ui.Statusbar.Battery.4.png",
+            };
+
+            var timer = new Timer();
+            timer.Interval = 1000;
+            timer.Enabled = true;
+            timer.Tick += (a,b) => {
+                gpsIcon.Value =(int) mapView1.GetGpsState();
+
+                switch (SystemState.PowerBatteryStrength)
+                {
+                    case BatteryLevel.VeryHigh:
+                        batteryIcon.Value = 3;
+                        break;
+                    case BatteryLevel.High:
+                        batteryIcon.Value = 2;
+                        break;
+                    case BatteryLevel.Medium:
+                        batteryIcon.Value = 1;
+                        break;
+                    case BatteryLevel.VeryLow:
+                    case BatteryLevel.Low:
+                        batteryIcon.Value = 0;
+                        break;
+
+                }
+            };
         }
 
         protected override void SetupBackground()
@@ -63,6 +103,10 @@ namespace STALKERPDA
                 new RenderEntry { Image = "STALKERPDA.Images.Ui.Background.Map.LeftBottom.png", Start = new Pivot{X = BORDER_MARGIN, Y = MAP_THIRD_ROW_Y, VerticalAnchor = VerticalPosition.Bottom} },
                 new RenderEntry { Image = "STALKERPDA.Images.Ui.Background.Map.Bottom.png", Start = new Pivot{X = MAP_LEFT_SIDE_WIDTH, Y = MAP_THIRD_ROW_Y, VerticalAnchor = VerticalPosition.Bottom}, End = new Pivot{X = MAP_RIGHT_SIDE_WIDTH, Y = BORDER_MARGIN, HorizontalAnchor = HorizontalPosition.Right, VerticalAnchor = VerticalPosition.Bottom} },
                 new RenderEntry { Image = "STALKERPDA.Images.Ui.Background.Map.RightBottom.png", Start = new Pivot{X = MAP_RIGHT_SIDE_WIDTH, Y = MAP_THIRD_ROW_Y, HorizontalAnchor = HorizontalPosition.Right, VerticalAnchor = VerticalPosition.Bottom}},
+
+                new RenderEntry { Image = "STALKERPDA.Images.Ui.Statusbar.Frame.Left.png", Start = new Pivot{X = 184, Y = 6, HorizontalAnchor = HorizontalPosition.Right} },
+                new RenderEntry { Image = "STALKERPDA.Images.Ui.Statusbar.Frame.Mid.png", Start = new Pivot{X = 157, Y = 6, HorizontalAnchor = HorizontalPosition.Right}, End = new Pivot{X = 54, Y = 6 + 27, HorizontalAnchor = HorizontalPosition.Right} },
+                new RenderEntry { Image = "STALKERPDA.Images.Ui.Statusbar.Frame.Right.png", Start = new Pivot{X = 54, Y = 6, HorizontalAnchor = HorizontalPosition.Right} },
             };
 
             IntPtr hdc = m_gBuffer.GetHdc();

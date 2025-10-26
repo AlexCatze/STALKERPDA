@@ -46,6 +46,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Windowsce.Forms" />
+    <Reference Include="Microsoft.WindowsMobile, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="Microsoft.WindowsMobile.Status, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="mscorlib" />
     <Reference Include="OpenNETCF, Version=2.3.17132.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -54,6 +56,10 @@
     <Reference Include="OpenNETCF.Drawing, Version=2.3.17132.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\OpenNETCF.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenNETCF.IO.Serial, Version=1.0.9430.32474, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\OpenNETCF.IO.Serial.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -73,6 +79,12 @@
     </Compile>
     <Compile Include="Controls\DoubleBufferedControl.cs">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\EnumVisualizer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\EnumVisualizer.Designer.cs">
+      <DependentUpon>EnumVisualizer.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\MapView.cs">
       <SubType>UserControl</SubType>
@@ -193,6 +205,17 @@
     <Content Include="Images\Ui\emptyTile.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Images\Ui\Statusbar\Battery\1.png" />
+    <EmbeddedResource Include="Images\Ui\Statusbar\Battery\2.png" />
+    <EmbeddedResource Include="Images\Ui\Statusbar\Battery\3.png" />
+    <EmbeddedResource Include="Images\Ui\Statusbar\Battery\4.png" />
+    <EmbeddedResource Include="Images\Ui\Statusbar\Gps\Bad.png" />
+    <EmbeddedResource Include="Images\Ui\Statusbar\Gps\Error.png" />
+    <EmbeddedResource Include="Images\Ui\Statusbar\Gps\Ok.png" />
+    <EmbeddedResource Include="Images\Ui\Statusbar\Gps\Warning.png" />
+    <EmbeddedResource Include="Images\Ui\Statusbar\Frame\Left.png" />
+    <EmbeddedResource Include="Images\Ui\Statusbar\Frame\Mid.png" />
+    <EmbeddedResource Include="Images\Ui\Statusbar\Frame\Right.png" />
     <EmbeddedResource Include="Images\Ui\MapIcons\PlayerIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />

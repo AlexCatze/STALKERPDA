@@ -57,6 +57,11 @@ namespace STALKERPDA.Controls
             return GPS.IsGpsAvailable() ? GPS.GetLatLon() : DefaultPos;
         }
 
+        public STALKERPDA.Utils.GPSProvider.GpsState GetGpsState()
+        {
+            return GPS.GetGpsState();
+        }
+
         private void CalculateXY()
         {
             x = (lon + 180) / 360 * Math.Pow(2, zoom);
@@ -76,6 +81,7 @@ namespace STALKERPDA.Controls
             VoidDelegate del = delegate() { this.Invalidate(); };
 
             TileProvider.OnWaitedTileArrived += (a, b) => { this.Invoke(del); };
+            GPS.OnPosUpdated += (a, b) => { this.Invoke(del); };
 
             PlayerIcon = LoadImageFromResource("STALKERPDA.Images.Ui.MapIcons.PlayerIcon.png");
             PlayerIcon.GetImageInfo(out PlayerIconInfo);
@@ -245,7 +251,8 @@ namespace STALKERPDA.Controls
 
                 case Keys.Enter:
                     SetZoom(18);
-                    SetCenterLatLon(50.50150086776309, 30.4982178814705);
+                    var latlon = GetPlayerPos();
+                    SetCenterLatLon(latlon.Lat, latlon.Lon);
                     break;
 
                 case Keys.F1:

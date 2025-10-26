@@ -28,23 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.customButton1 = new STALKERPDA.Controls.CustomButton();
+            this.mapButton = new STALKERPDA.Controls.CustomButton();
             this.customButton2 = new STALKERPDA.Controls.CustomButton();
             this.mapView1 = new STALKERPDA.Controls.MapView();
+            this.chatButton = new STALKERPDA.Controls.CustomButton();
+            this.settingsButton = new STALKERPDA.Controls.CustomButton();
+            this.gpsIcon = new STALKERPDA.Controls.EnumVisualizer();
+            this.batteryIcon = new STALKERPDA.Controls.EnumVisualizer();
             this.SuspendLayout();
             // 
-            // customButton1
+            // mapButton
             // 
-            this.customButton1.Caption = "Мапа";
-            this.customButton1.DefaultImage = "STALKERPDA.Images.Ui.Buttons.Button1.png";
-            this.customButton1.Font = new System.Drawing.Font("Courier New", 6F, System.Drawing.FontStyle.Regular);
-            this.customButton1.ForeColor = System.Drawing.Color.White;
-            this.customButton1.IsPressed = true;
-            this.customButton1.Location = new System.Drawing.Point(6, 6);
-            this.customButton1.Name = "customButton1";
-            this.customButton1.PressedImage = "STALKERPDA.Images.Ui.Buttons.Button1_Pressed.png";
-            this.customButton1.Size = new System.Drawing.Size(172, 27);
-            this.customButton1.TabIndex = 0;
+            this.mapButton.Caption = "Мапа";
+            this.mapButton.DefaultImage = "STALKERPDA.Images.Ui.Buttons.Button1.png";
+            this.mapButton.Font = new System.Drawing.Font("Courier New", 6F, System.Drawing.FontStyle.Regular);
+            this.mapButton.ForeColor = System.Drawing.Color.White;
+            this.mapButton.IsPressed = true;
+            this.mapButton.Location = new System.Drawing.Point(6, 6);
+            this.mapButton.Name = "mapButton";
+            this.mapButton.PressedImage = "STALKERPDA.Images.Ui.Buttons.Button1_Pressed.png";
+            this.mapButton.Size = new System.Drawing.Size(172, 27);
+            this.mapButton.TabIndex = 0;
             // 
             // customButton2
             // 
@@ -64,8 +68,50 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.mapView1.Location = new System.Drawing.Point(7, 99);
             this.mapView1.Name = "mapView1";
-            this.mapView1.Size = new System.Drawing.Size(607, 354);
+            this.mapView1.Size = new System.Drawing.Size(622, 369);
             this.mapView1.TabIndex = 2;
+            // 
+            // chatButton
+            // 
+            this.chatButton.Caption = "Чат";
+            this.chatButton.DefaultImage = "STALKERPDA.Images.Ui.Buttons.Button1.png";
+            this.chatButton.Font = new System.Drawing.Font("Courier New", 6F, System.Drawing.FontStyle.Regular);
+            this.chatButton.ForeColor = System.Drawing.Color.White;
+            this.chatButton.IsPressed = true;
+            this.chatButton.Location = new System.Drawing.Point(156, 6);
+            this.chatButton.Name = "chatButton";
+            this.chatButton.PressedImage = "STALKERPDA.Images.Ui.Buttons.Button1_Pressed.png";
+            this.chatButton.Size = new System.Drawing.Size(172, 27);
+            this.chatButton.TabIndex = 3;
+            this.chatButton.Visible = false;
+            // 
+            // settingsButton
+            // 
+            this.settingsButton.Caption = "Мапа";
+            this.settingsButton.DefaultImage = "STALKERPDA.Images.Ui.Buttons.Button1.png";
+            this.settingsButton.Font = new System.Drawing.Font("Courier New", 6F, System.Drawing.FontStyle.Regular);
+            this.settingsButton.ForeColor = System.Drawing.Color.White;
+            this.settingsButton.IsPressed = true;
+            this.settingsButton.Location = new System.Drawing.Point(306, 6);
+            this.settingsButton.Name = "settingsButton";
+            this.settingsButton.PressedImage = "STALKERPDA.Images.Ui.Buttons.Button1_Pressed.png";
+            this.settingsButton.Size = new System.Drawing.Size(172, 27);
+            this.settingsButton.TabIndex = 4;
+            this.settingsButton.Visible = false;
+            // 
+            // gpsIcon
+            // 
+            this.gpsIcon.Location = new System.Drawing.Point(520, 12);
+            this.gpsIcon.Name = "gpsIcon";
+            this.gpsIcon.Size = new System.Drawing.Size(16, 16);
+            this.gpsIcon.TabIndex = 5;
+            // 
+            // batteryIcon
+            // 
+            this.batteryIcon.Location = new System.Drawing.Point(483, 12);
+            this.batteryIcon.Name = "batteryIcon";
+            this.batteryIcon.Size = new System.Drawing.Size(32, 16);
+            this.batteryIcon.TabIndex = 6;
             // 
             // MainForm
             // 
@@ -73,9 +119,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(640, 480);
+            this.Controls.Add(this.batteryIcon);
+            this.Controls.Add(this.gpsIcon);
+            this.Controls.Add(this.settingsButton);
+            this.Controls.Add(this.chatButton);
             this.Controls.Add(this.mapView1);
             this.Controls.Add(this.customButton2);
-            this.Controls.Add(this.customButton1);
+            this.Controls.Add(this.mapButton);
             this.KeyPreview = true;
             this.Location = new System.Drawing.Point(0, 0);
             this.Name = "MainForm";
@@ -88,9 +138,13 @@
 
         #endregion
 
-        private STALKERPDA.Controls.CustomButton customButton1;
+        private STALKERPDA.Controls.CustomButton mapButton;
         private STALKERPDA.Controls.CustomButton customButton2;
         private STALKERPDA.Controls.MapView mapView1;
+        private STALKERPDA.Controls.CustomButton chatButton;
+        private STALKERPDA.Controls.CustomButton settingsButton;
+        private STALKERPDA.Controls.EnumVisualizer gpsIcon;
+        private STALKERPDA.Controls.EnumVisualizer batteryIcon;
 
 
 
