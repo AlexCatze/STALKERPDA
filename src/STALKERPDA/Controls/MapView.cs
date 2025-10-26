@@ -11,6 +11,7 @@ using System.Reflection;
 using System.Threading;
 using STALKERPDA.Utils;
 using OpenNETCF.Drawing;
+using OpenNETCF.Drawing.Imaging;
 
 namespace STALKERPDA.Controls
 {
@@ -31,6 +32,9 @@ namespace STALKERPDA.Controls
         protected GraphicsEx mapGraphicsEx;
 
         protected MapTileProvider TileProvider = new MapTileProvider();
+
+        protected IImage PlayerIcon;
+        protected ImageInfo PlayerIconInfo;
 
         public void SetCenterLatLon(double _lat, double _lon)
         {
@@ -56,12 +60,16 @@ namespace STALKERPDA.Controls
 
         public MapView()
         {
+            m_factory = new ImagingFactoryClass();
             InitializeComponent();
             mapBuffer = new Bitmap(1, 1);
 
             VoidDelegate del = delegate() { this.Invalidate(); };
 
             TileProvider.OnWaitedTileArrived += (a, b) => { this.Invoke(del); };
+
+            PlayerIcon = LoadImageFromResource("STALKERPDA.Images.Ui.MapIcons.PlayerIcon.png");
+            PlayerIcon.GetImageInfo(out PlayerIconInfo);
         }
 
         protected override void OnResize(EventArgs e)
@@ -122,13 +130,36 @@ namespace STALKERPDA.Controls
                 }
 
                 //g.DrawImage(mapBuffer, 1,1);
-
-                var gex = GraphicsEx.FromHdc(g.GetHdc());
+                var hdc = g.GetHdc();
+                var gex = GraphicsEx.FromHdc(hdc);
                 gex.CopyGraphics(mapGraphicsEx, new Rectangle(1,1,this.Width-2, this.Height-2));
-                gex.Dispose();
 
-                g.FillRectangle(new SolidBrush(Color.Red), Width / 2, Height / 2, 1, 1);
+                DrawIcon(50.50150086776309, 30.4982178814705, PlayerIcon, hdc);
+
+                //g.ReleaseHdc(hdc);
+                gex.Dispose();
+                //g.FillRectangle(new SolidBrush(Color.Red), Width / 2, Height / 2, 1, 1);
             }
+        }
+
+        private void DrawIcon(double lat, double lon, IImage icon, IntPtr hdc)
+        {
+            var xy = LatLonToScreenCoord(lat, lon);
+            ImageInfo imginfo;
+            icon.GetImageInfo(out imginfo);
+
+            int xs = (int)(xy.X - imginfo.Width / 2);
+            int ys = (int)(xy.Y - imginfo.Height/2);
+
+            icon.Draw(hdc, new RECT(xs, ys, (int)PlayerIconInfo.Width + xs, (int)PlayerIconInfo.Height + ys), null);
+        }
+
+        private Vector2 LatLonToScreenCoord(double lat, double lon)
+        {
+            int _x = (int)(((lon + 180) / 360 * Math.Pow(2, zoom) - x) * TILE_SIDE + Width / 2 );
+            int _y = (int)(((1 - Math.Log(Math.Tan(lat * Math.PI / 180) + 1 / Math.Cos(lat * Math.PI / 180)) / Math.PI) / 2 * Math.Pow(2, zoom) - y) * TILE_SIDE + Height / 2 );
+
+            return new Vector2(_x, _y);
         }
 
         private BitmapEx GetTile(int x, int y, int z)

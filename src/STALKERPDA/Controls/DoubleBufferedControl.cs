@@ -63,5 +63,15 @@ namespace STALKERPDA.Controls
         }
 
         #endregion
+
+        protected IImage LoadImageFromResource(string path)
+        {
+            IImage img = null;
+            if (string.IsNullOrEmpty(path)) return null;
+            StreamOnFile sof = new StreamOnFile(GetType().Assembly.GetManifestResourceStream(path));
+            if (sof == null) return null;
+            m_factory.CreateImageFromStream(sof, out img);
+            return img;
+        }
     }
 }
