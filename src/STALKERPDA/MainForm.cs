@@ -100,5 +100,10 @@ namespace STALKERPDA
         {
             Close();   
         }
+
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            mapView1.ProcessKeyCode(e.KeyCode);
+        }
     }
 }

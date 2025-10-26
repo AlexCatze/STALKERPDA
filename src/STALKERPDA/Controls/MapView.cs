@@ -208,6 +208,41 @@ namespace STALKERPDA.Controls
             Offset(-1, 0);
         }
 
+        public void ProcessKeyCode(Keys key)
+        {
+            switch (key)
+            {
+                case Keys.Up:
+                    Offset(-1, 0);
+                    break;
+
+                case Keys.Down:
+                    Offset(1, 0);
+                    break;
+
+                case Keys.Left:
+                    Offset(0, -1);
+                    break;
+
+                case Keys.Right:
+                    Offset(0, 1);
+                    break;
+
+                case Keys.Enter:
+                    SetZoom(18);
+                    SetCenterLatLon(50.50150086776309, 30.4982178814705);
+                    break;
+
+                case Keys.F1:
+                    SetZoom(zoom - 1);
+                    break;
+
+                case Keys.F2:
+                    SetZoom(zoom + 1);
+                    break;
+            }
+        }
+
         private void Offset(int _x, int _y)
         {
             //offsetx += _x * SCROLL_SPEED;
