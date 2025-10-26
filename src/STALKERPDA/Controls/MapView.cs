@@ -16,8 +16,8 @@ namespace STALKERPDA.Controls
 {
     public partial class MapView : DoubleBufferedControl
     {
-        public const int MIN_ZOOM = 10, MAX_ZOOM = 17, DEFAULT_ZOOM = 14;
-        public const int TILE_SIDE = 256, SCROLL_SPEED = 10;
+        public const int MIN_ZOOM = 11, MAX_ZOOM = 17, DEFAULT_ZOOM = 14;
+        public const int TILE_SIDE = 256, SCROLL_SPEED = 25;
 
         private double x, y, lat, lon;
         private int zoom = DEFAULT_ZOOM;
@@ -52,11 +52,16 @@ namespace STALKERPDA.Controls
             Invalidate();
         }
 
+        delegate void VoidDelegate();
 
         public MapView()
         {
             InitializeComponent();
             mapBuffer = new Bitmap(1, 1);
+
+            VoidDelegate del = delegate() { this.Invalidate(); };
+
+            TileProvider.OnWaitedTileArrived += (a, b) => { this.Invoke(del); };
         }
 
         protected override void OnResize(EventArgs e)
@@ -129,7 +134,6 @@ namespace STALKERPDA.Controls
         private Bitmap GetTile(int x, int y, int z)
         {
             return TileProvider.GetBitmap(x, y, z);
-            //return new Bitmap(Path.GetDirectoryName (Assembly.GetExecutingAssembly ().GetName ().CodeBase)+"/vt1.jpg");
         }
 
         private void customButton5_Click(object sender, EventArgs e)// Center to character
