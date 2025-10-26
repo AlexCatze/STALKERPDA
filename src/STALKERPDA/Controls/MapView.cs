@@ -48,6 +48,7 @@ namespace STALKERPDA.Controls
         {
             x = (lon + 180) / 360 * Math.Pow(2, zoom);
             y = (1 - Math.Log(Math.Tan(lat * Math.PI / 180) + 1 / Math.Cos(lat * Math.PI / 180)) / Math.PI) / 2 * Math.Pow(2, zoom);
+            TileProvider.UpdateCacheList((int)x, (int)y, zoom);
             Invalidate();
         }
 
@@ -81,9 +82,15 @@ namespace STALKERPDA.Controls
             m_gBuffer.DrawRectangle(new Pen(Color.FromArgb(93, 95, 95), 1), 0, 0, this.Width - 1, this.Height - 1);//TODO: Move to background
         }
 
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            //base.OnPaintBackground(e);
+            e.Graphics.DrawRectangle(new Pen(Color.FromArgb(93, 95, 95), 1), 0, 0, this.Width - 1, this.Height - 1);
+        }
+
         protected override void OnPaint(PaintEventArgs e)
         {
-            base.OnPaint(e);
+            //base.OnPaint(e);
 
             using (var g = e.Graphics)
             {
@@ -105,7 +112,7 @@ namespace STALKERPDA.Controls
                         int yoff = k - todrawtop;
                         var tile = GetTile(x0 + xoff, y0 + yoff, zoom);
                         mapGraphics.DrawImage(tile, (this.Width / 2) - dx + (TILE_SIDE * xoff), (this.Height / 2) - dy + (TILE_SIDE * yoff));
-                        tile.Dispose();
+                        //tile.Dispose();
                     }
                 }
 
@@ -171,7 +178,7 @@ namespace STALKERPDA.Controls
             //offsetx += _x * SCROLL_SPEED;
             //offsety += _y * SCROLL_SPEED;
             SetCenterLatLon(lat + _y / Math.Pow(2, zoom) * SCROLL_SPEED, lon + _x / Math.Pow(2, zoom) * SCROLL_SPEED);
-            Invalidate();
+            //Invalidate();
         }
     }
 }

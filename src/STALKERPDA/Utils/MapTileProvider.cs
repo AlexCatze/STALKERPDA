@@ -12,12 +12,62 @@ namespace STALKERPDA.Utils
     {
         private const string MAP_FOLDER = "/Storage Card/map/";
 
+        private const int CACHE_LIMIT = 32;
+
+        private Dictionary<long, Bitmap> BitmapCache = new Dictionary<long, Bitmap>();
+
+        private long CenterTileId = 0;
+
+        private List<long> CacheList = new List<long>();
+
+        private long GetTileId(int x, int y, int z)
+        {
+            return (x << 28) + y + (z << 56);//FIXME add mask
+        }
+
         private string GetMapPath(int x, int y, int z)
         {
             return MAP_FOLDER + z.ToString() + '/'+x.ToString()+'/'+y.ToString()+".jpg";
         }
 
+        private void EnsureBitmapInCache(int x, int y, int z)
+        {
+            if (BitmapCache.Keys.Contains(GetTileId(x, y, z))) return;
+
+
+
+            if (BitmapCache.Count > CACHE_LIMIT)
+            {
+                var el = BitmapCache.FirstOrDefault(b=>!CacheList.Contains(b.Key));
+                if (el.Value != null)
+                {
+                    el.Value.Dispose();
+                    BitmapCache.Remove(el.Key);
+                }
+            }//FIXME remove most useless
+
+            BitmapCache.Add(GetTileId(x, y, z), LoadBitmap(x, y, z));
+        }
+
+        public void UpdateCacheList(int x, int y, int z)
+        {
+            if(CenterTileId==GetTileId(x, y, z)) return;
+            CenterTileId = GetTileId(x, y, z);
+
+            CacheList.Clear();
+            for (int i = -3; i <= 3; i++)
+                for (int k = -3; k <= 3; k++)
+                    CacheList.Add(GetTileId(x + i, y + k, z));
+        }
+
         public Bitmap GetBitmap(int x, int y, int z)
+        {
+            EnsureBitmapInCache(x,y,z);
+
+            return BitmapCache[GetTileId(x, y, z)];
+        }
+
+        public Bitmap LoadBitmap(int x, int y, int z)
         {
             var tilePath = GetMapPath( x, y, z);
 

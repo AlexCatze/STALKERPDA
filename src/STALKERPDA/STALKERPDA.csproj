@@ -45,10 +45,6 @@
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LINQBridge.CF, Version=1.0.6341.23875, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\LINQBridge.CF.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Windowsce.Forms" />
     <Reference Include="mscorlib" />
     <Reference Include="OpenNETCF, Version=2.3.17132.0, Culture=neutral, processorArchitecture=MSIL">
