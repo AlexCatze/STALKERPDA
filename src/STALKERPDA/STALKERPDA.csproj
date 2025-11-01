@@ -15,7 +15,7 @@
     <OSVersion>5.02</OSVersion>
     <DeployDirSuffix>STALKERPDA</DeployDirSuffix>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <NativePlatformName>Windows Mobile 6 Professional SDK</NativePlatformName>
+    <NativePlatformName>Windows Mobile 6.5 Professional SDK</NativePlatformName>
     <FormFactorID>
     </FormFactorID>
   </PropertyGroup>
@@ -97,6 +97,12 @@
     </Compile>
     <Compile Include="Controls\MapView.Designer.cs">
       <DependentUpon>MapView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TabSelector.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\TabSelector.Designer.cs">
+      <DependentUpon>TabSelector.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\TransparentControl.cs">
       <SubType>UserControl</SubType>
@@ -208,6 +214,12 @@
     <EmbeddedResource Include="Images\Ui\Buttons\Map\Button9_Pressed.png" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Images\Ui\Buttons\Button1.Center.png" />
+    <EmbeddedResource Include="Images\Ui\Buttons\Button1.Left.png" />
+    <EmbeddedResource Include="Images\Ui\Buttons\Button1.Right.png" />
+    <EmbeddedResource Include="Images\Ui\Buttons\Button1_Pressed.Center.png" />
+    <EmbeddedResource Include="Images\Ui\Buttons\Button1_Pressed.Left.png" />
+    <EmbeddedResource Include="Images\Ui\Buttons\Button1_Pressed.Right.png" />
     <Content Include="Images\Ui\emptyTile.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

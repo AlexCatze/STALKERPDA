@@ -50,6 +50,9 @@ namespace STALKERPDA
                 "STALKERPDA.Images.Ui.Statusbar.Battery.4.png",
             };
 
+            tabSelector1.TabNames = new List<string>() { "Мапа", "Чат","Мережа","Музика", "Налаштування" };
+            tabSelector1.Invalidate();
+
             var timer = new Timer();
             timer.Interval = 1000;
             timer.Enabled = true;
