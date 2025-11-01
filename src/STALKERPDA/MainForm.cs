@@ -51,6 +51,13 @@ namespace STALKERPDA
             };
 
             tabSelector1.TabNames = new List<string>() { "Мапа", "Чат","Мережа","Музика", "Налаштування" };
+            tabSelector1.TabIcons = new List<string>() { 
+                "STALKERPDA.Images.Ui.Taskbar.Map.png",
+                "STALKERPDA.Images.Ui.Taskbar.Chat.png",
+                "STALKERPDA.Images.Ui.Taskbar.Network.png",
+                "STALKERPDA.Images.Ui.Taskbar.Music.png",
+                "STALKERPDA.Images.Ui.Taskbar.Settings.png",
+            };
             tabSelector1.Invalidate();
 
             var timer = new Timer();

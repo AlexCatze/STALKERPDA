@@ -223,6 +223,11 @@
     <Content Include="Images\Ui\emptyTile.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Images\Ui\Taskbar\Chat.png" />
+    <EmbeddedResource Include="Images\Ui\Taskbar\Map.png" />
+    <EmbeddedResource Include="Images\Ui\Taskbar\Music.png" />
+    <EmbeddedResource Include="Images\Ui\Taskbar\Network.png" />
+    <EmbeddedResource Include="Images\Ui\Taskbar\Settings.png" />
     <EmbeddedResource Include="Images\Ui\Statusbar\Battery\1.png" />
     <EmbeddedResource Include="Images\Ui\Statusbar\Battery\2.png" />
     <EmbeddedResource Include="Images\Ui\Statusbar\Battery\3.png" />

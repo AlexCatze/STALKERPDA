@@ -14,6 +14,20 @@ namespace STALKERPDA.Controls
     {
         public List<string> TabNames = new List<string>();
 
+        public List<string> TabIcons
+        {
+            set
+            {
+                foreach (var img in value)
+                {
+                    _images.Add(LoadImageFromResource(img));
+                }
+                Invalidate();
+            }
+        }
+
+        private List<IImage> _images = new List<IImage>();
+
         [EditorBrowsable()]
         public int MidWidthOpen {get; set;}
 
@@ -99,6 +113,14 @@ namespace STALKERPDA.Controls
                     }
                     else
                     {
+                        if (_images.Count > i)
+                        {
+                            ImageInfo info;
+                            _images[i].GetImageInfo(out info);
+                            int x0 = prevX + ((x - prevX) - (int)info.Width) / 2;
+                            int y0 = (int)(Height - info.Height) / 2;
+                            _images[i].Draw(hdc, new RECT(x0, y0, x0 + (int)info.Width, y0+ (int)info.Height), null);
+                        }
                     }
 
                     x -= ItemOffset;
