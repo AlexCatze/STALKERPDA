@@ -60,6 +60,8 @@ namespace STALKERPDA
             };
             tabSelector1.Invalidate();
 
+            //tabSelector1.Location = new Point(tabSelector1.Location.X,tabSelector1.Location.Y + 31);
+
             var timer = new Timer();
             timer.Interval = 1000;
             timer.Enabled = true;
@@ -85,6 +87,16 @@ namespace STALKERPDA
                         break;
 
                 }
+            };
+
+            var tabs =new  List<Control> {mapView1};
+
+            tabSelector1.OnTabChanged += (a, b) => {
+                foreach(var i in tabs)
+                {
+                    mapView1.Visible = mapView1.Enabled = tabs.IndexOf(i) == tabSelector1.SelectedIndex;
+                }
+                Invalidate();
             };
         }
 
@@ -159,7 +171,12 @@ namespace STALKERPDA
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
+            switch(tabSelector1.SelectedIndex)
+            {
+                case 0:
             mapView1.ProcessKeyCode(e.KeyCode);
+            break;
+        }
         }
     }
 }

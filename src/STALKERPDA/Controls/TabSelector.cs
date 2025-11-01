@@ -41,6 +41,8 @@ namespace STALKERPDA.Controls
         [DefaultValue(0)]
         public int SelectedIndex { get; set; }
 
+        public event EventHandler OnTabChanged;
+
         private IImage ImageLeft, ImageCenter, ImageRight, ImageLeft_Selected, ImageCenter_Selected, ImageRight_Selected;
 
         private List<int> StartCoords = new List<int>(), EndCoords = new List<int>();
@@ -143,8 +145,12 @@ namespace STALKERPDA.Controls
                 {
                     if (e.X <= EndCoords[i])
                     {
-                        SelectedIndex = i;
-                        Invalidate();
+                        if (SelectedIndex != i)
+                        {
+                            SelectedIndex = i;
+                            Invalidate();
+                            OnTabChanged.Invoke(this, null);
+                        }
                     }
                 }
 

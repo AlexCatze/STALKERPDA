@@ -59,6 +59,7 @@
             // 
             // gpsIcon
             // 
+            this.gpsIcon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.gpsIcon.Location = new System.Drawing.Point(520, 12);
             this.gpsIcon.Name = "gpsIcon";
             this.gpsIcon.Size = new System.Drawing.Size(16, 16);
@@ -66,6 +67,7 @@
             // 
             // batteryIcon
             // 
+            this.batteryIcon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.batteryIcon.Location = new System.Drawing.Point(483, 12);
             this.batteryIcon.Name = "batteryIcon";
             this.batteryIcon.Size = new System.Drawing.Size(32, 16);
@@ -73,6 +75,7 @@
             // 
             // timeLabel
             // 
+            this.timeLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.timeLabel.Font = new System.Drawing.Font("Tahoma", 5F, System.Drawing.FontStyle.Bold);
             this.timeLabel.ForeColor = System.Drawing.Color.Silver;
             this.timeLabel.Location = new System.Drawing.Point(542, 10);
@@ -83,8 +86,6 @@
             // 
             // tabSelector1
             // 
-            this.tabSelector1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
             this.tabSelector1.Font = new System.Drawing.Font("Courier New", 6F, System.Drawing.FontStyle.Regular);
             this.tabSelector1.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.tabSelector1.ItemOffset = 23;
@@ -92,7 +93,7 @@
             this.tabSelector1.MidWidthClosed = 27;
             this.tabSelector1.MidWidthOpen = 126;
             this.tabSelector1.Name = "tabSelector1";
-            this.tabSelector1.Size = new System.Drawing.Size(471, 27);
+            this.tabSelector1.Size = new System.Drawing.Size(420, 27);
             this.tabSelector1.TabIndex = 8;
             // 
             // MainForm
