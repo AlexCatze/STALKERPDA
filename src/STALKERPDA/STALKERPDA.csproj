@@ -223,6 +223,11 @@
     <Content Include="Images\Ui\emptyTile.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Images\Ui\Statusbar\Meshtastic\Active.png" />
+    <EmbeddedResource Include="Images\Ui\Statusbar\Meshtastic\Error.png" />
+    <EmbeddedResource Include="Images\Ui\Statusbar\Meshtastic\NotConnected.png" />
+    <EmbeddedResource Include="Images\Ui\Statusbar\Meshtastic\Ok.png" />
+    <EmbeddedResource Include="Images\Ui\Statusbar\Meshtastic\Warning.png" />
     <EmbeddedResource Include="Images\Ui\Taskbar\Chat.png" />
     <EmbeddedResource Include="Images\Ui\Taskbar\Map.png" />
     <EmbeddedResource Include="Images\Ui\Taskbar\Music.png" />

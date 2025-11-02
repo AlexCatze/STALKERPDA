@@ -156,7 +156,7 @@ namespace STALKERPDA.Controls
                 var latlon = GetPlayerPos();
                 DrawIcon(latlon.Lat, latlon.Lon, PlayerIcon, hdc);
 
-                //g.ReleaseHdc(hdc);
+                g.ReleaseHdc(hdc);
                 gex.Dispose();
                 //g.FillRectangle(new SolidBrush(Color.Red), Width / 2, Height / 2, 1, 1);
             }

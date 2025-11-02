@@ -47,6 +47,7 @@ namespace STALKERPDA.Controls
                         img.Draw(hdc, new RECT(0, 0, this.Width, this.Height), null);
                     }
                 }
+                g.ReleaseHdc(hdc);
             }
         }
 

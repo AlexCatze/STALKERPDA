@@ -34,6 +34,7 @@
             this.batteryIcon = new STALKERPDA.Controls.EnumVisualizer();
             this.timeLabel = new STALKERPDA.Controls.CustomLabel();
             this.tabSelector1 = new STALKERPDA.Controls.TabSelector();
+            this.meshasticStatus = new STALKERPDA.Controls.EnumVisualizer();
             this.SuspendLayout();
             // 
             // customButton2
@@ -60,7 +61,7 @@
             // gpsIcon
             // 
             this.gpsIcon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.gpsIcon.Location = new System.Drawing.Point(520, 12);
+            this.gpsIcon.Location = new System.Drawing.Point(483, 12);
             this.gpsIcon.Name = "gpsIcon";
             this.gpsIcon.Size = new System.Drawing.Size(16, 16);
             this.gpsIcon.TabIndex = 5;
@@ -68,7 +69,7 @@
             // batteryIcon
             // 
             this.batteryIcon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.batteryIcon.Location = new System.Drawing.Point(483, 12);
+            this.batteryIcon.Location = new System.Drawing.Point(504, 12);
             this.batteryIcon.Name = "batteryIcon";
             this.batteryIcon.Size = new System.Drawing.Size(32, 16);
             this.batteryIcon.TabIndex = 6;
@@ -96,12 +97,21 @@
             this.tabSelector1.Size = new System.Drawing.Size(420, 27);
             this.tabSelector1.TabIndex = 8;
             // 
+            // meshasticStatus
+            // 
+            this.meshasticStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.meshasticStatus.Location = new System.Drawing.Point(462, 12);
+            this.meshasticStatus.Name = "meshasticStatus";
+            this.meshasticStatus.Size = new System.Drawing.Size(16, 16);
+            this.meshasticStatus.TabIndex = 9;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(192F, 192F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(640, 480);
+            this.Controls.Add(this.meshasticStatus);
             this.Controls.Add(this.tabSelector1);
             this.Controls.Add(this.timeLabel);
             this.Controls.Add(this.batteryIcon);
@@ -126,6 +136,7 @@
         private STALKERPDA.Controls.EnumVisualizer batteryIcon;
         private STALKERPDA.Controls.CustomLabel timeLabel;
         private STALKERPDA.Controls.TabSelector tabSelector1;
+        private STALKERPDA.Controls.EnumVisualizer meshasticStatus;
 
 
 

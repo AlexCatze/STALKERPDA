@@ -50,6 +50,13 @@ namespace STALKERPDA
                 "STALKERPDA.Images.Ui.Statusbar.Battery.4.png",
             };
 
+            meshasticStatus.Images = new List<string> { 
+                "STALKERPDA.Images.Ui.Statusbar.Meshtastic.NotConnected.png",
+                "STALKERPDA.Images.Ui.Statusbar.Meshtastic.Active.png",
+                "STALKERPDA.Images.Ui.Statusbar.Meshtastic.Ok.png",
+                "STALKERPDA.Images.Ui.Statusbar.Meshtastic.Warning.png",
+                "STALKERPDA.Images.Ui.Statusbar.Meshtastic.Error.png"};
+
             tabSelector1.TabNames = new List<string>() { "Мапа", "Чат","Мережа","Музика", "Налаштування" };
             tabSelector1.TabIcons = new List<string>() { 
                 "STALKERPDA.Images.Ui.Taskbar.Map.png",
@@ -128,8 +135,8 @@ namespace STALKERPDA
                 new RenderEntry { Image = "STALKERPDA.Images.Ui.Background.Map.Bottom.png", Start = new Pivot{X = MAP_LEFT_SIDE_WIDTH, Y = MAP_THIRD_ROW_Y, VerticalAnchor = VerticalPosition.Bottom}, End = new Pivot{X = MAP_RIGHT_SIDE_WIDTH, Y = BORDER_MARGIN, HorizontalAnchor = HorizontalPosition.Right, VerticalAnchor = VerticalPosition.Bottom} },
                 new RenderEntry { Image = "STALKERPDA.Images.Ui.Background.Map.RightBottom.png", Start = new Pivot{X = MAP_RIGHT_SIDE_WIDTH, Y = MAP_THIRD_ROW_Y, HorizontalAnchor = HorizontalPosition.Right, VerticalAnchor = VerticalPosition.Bottom}},
 
-                new RenderEntry { Image = "STALKERPDA.Images.Ui.Statusbar.Frame.Left.png", Start = new Pivot{X = 184, Y = 6, HorizontalAnchor = HorizontalPosition.Right} },
-                new RenderEntry { Image = "STALKERPDA.Images.Ui.Statusbar.Frame.Mid.png", Start = new Pivot{X = 157, Y = 6, HorizontalAnchor = HorizontalPosition.Right}, End = new Pivot{X = 54, Y = 6 + 27, HorizontalAnchor = HorizontalPosition.Right} },
+                new RenderEntry { Image = "STALKERPDA.Images.Ui.Statusbar.Frame.Left.png", Start = new Pivot{X = 184 + 21, Y = 6, HorizontalAnchor = HorizontalPosition.Right} },
+                new RenderEntry { Image = "STALKERPDA.Images.Ui.Statusbar.Frame.Mid.png", Start = new Pivot{X = 157 + 21, Y = 6, HorizontalAnchor = HorizontalPosition.Right}, End = new Pivot{X = 54, Y = 6 + 27, HorizontalAnchor = HorizontalPosition.Right} },
                 new RenderEntry { Image = "STALKERPDA.Images.Ui.Statusbar.Frame.Right.png", Start = new Pivot{X = 54, Y = 6, HorizontalAnchor = HorizontalPosition.Right} },
             };
 
